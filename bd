@@ -1,0 +1,29 @@
+# GENERANDO TABLAS
+CREATE TABLE `script` (
+  `id_script` INT (4) NOT NULL COMMENT 'Clave primaria para cada script',
+  `nombre` VARCHAR (50) NOT NULL COMMENT 'Nombre  del script',
+  `codigo` BLOB NOT NULL COMMENT 'El codigo del script',
+  `comentario` VARCHAR (100) NOT NULL COMMENT 'Descripcion sobre el script',
+  `fecha` DATE NOT NULL COMMENT 'Fecha en que se ingresa',
+  `categoria_id_cat` INT (4) NOT NULL COMMENT 'Clave primaria de la categoria',
+  KEY (`categoria_id_cat`),
+  `lenguaje_id_leng` INT (4) NOT NULL COMMENT 'Clave primaria de cada lenguaje',
+  KEY (`lenguaje_id_leng`),
+  PRIMARY KEY (`id_script`)
+) ENGINE = INNODB ;
+
+CREATE TABLE `categoria` (
+  `id_cat` INT (4) NOT NULL COMMENT 'Clave primaria de la categoria',
+  `categoria` VARCHAR (50) NOT NULL COMMENT 'Descripcion de la categoria',
+  PRIMARY KEY (`id_cat`)
+) ENGINE = INNODB ;
+
+CREATE TABLE `lenguaje` (
+	`id_leng` INT(4) NOT NULL COMMENT 'Clave primaria de cada lenguaje',
+	`lenguaje` VARCHAR(40) NOT NULL COMMENT 'Nombre del lenguaje',
+	PRIMARY KEY(`id_leng`)
+) ENGINE=INNODB;
+
+# GENERANDO RELACIONES
+ALTER TABLE `script` ADD CONSTRAINT `script_categoria_categoria_id_cat` FOREIGN KEY (`categoria_id_cat`) REFERENCES `categoria`(`id_cat`) ON DELETE NO ACTION ON UPDATE CASCADE;
+ALTER TABLE `script` ADD CONSTRAINT `script_lenguaje_lenguaje_id_leng` FOREIGN KEY (`lenguaje_id_leng`) REFERENCES `lenguaje`(`id_leng`) ON DELETE NO ACTION ON UPDATE CASCADE;
